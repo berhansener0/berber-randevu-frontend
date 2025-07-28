@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode';
+import  {jwtDecode}  from 'jwt-decode';
 import api from '../services/api';
 
 function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
@@ -20,7 +20,7 @@ function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
             console.log("decoded token:",decoded.userId);
 
             try {
-                const response = await api.get(`/Appointment/barber/${barberId}`);
+                const response = await api.get(`/Appointment/barber/${barberId}/appointments`);
                 setAppointments(response.data);
             } catch (error) {
                 console.error("Randevular alınamadı:", error);
@@ -42,7 +42,7 @@ function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
             <ul>
                 {appointments.map((appointment) => (
                     <li key={appointment.appointmentId}>
-                        Kullanıcı ID: {appointment.userId} | Tarih: {appointment.appointmentDate} | Saat: {appointment.startTime} | Durum: {appointment.status}
+                        Kullanıcı ID: {appointment.userName} | Tarih: {appointment.appointmentDate} | Saat: {appointment.startTime} | Durum: {appointment.status}
                     </li>
                 ))}
             </ul>
