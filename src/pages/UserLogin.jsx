@@ -36,7 +36,8 @@ function UserLogin({setIsAuthenticated})
                 <input name='email' placeholder='Email' onChange={handleChange} required/>
                 <input name='password' placeholder='Password' type="password" onChange={handleChange} required/>
                 <button type="submit">Giriş Yap</button>
-                <button onClick={()=>navigate('/register')}>Kayıt Ol</button>
+                <button type='button' onClick={()=>navigate('/register')}>Kayıt Ol</button>
+                <button type="button" onClick={()=>navigate('/')}>Ana Sayfaya Geri Dön</button>
             </form>
         </div>
     );

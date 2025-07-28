@@ -32,6 +32,7 @@ function BarberLoginPage({setIsBarberAuthenticated}) {
                 <input name='email' placeholder='Email' onChange={handleChange} required />
                 <input name='password' placeholder='Password' type="password" onChange={handleChange} required/>
                 <button type="submit">Giriş Yap</button>
+                <button type="button" onClick={()=>navigate('/')}>Ana Sayfaya Geri Dön</button>
             </form>
         </div>
     )

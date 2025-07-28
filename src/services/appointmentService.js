@@ -14,6 +14,12 @@ export const getAppointmentsByUser = async (userId) => {
     return response.data;
 };
 
+export const updateStatus=async(appointmentId,status)=>{
+  const response = await api.put(`/Appointment/${appointmentId}`, {
+    status : status
+});
+  return response.data;
+};
 
 export const createAppointment = async (appointmentData) => {
   const response = await axios.post(API_URL, {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  {jwtDecode}  from 'jwt-decode';
 import api from '../services/api';
+import { updateStatus } from "../services/appointmentService";
 
 function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
     const [appointments, setAppointments] = useState([]);
@@ -34,6 +35,21 @@ function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
         navigate('/barber-login');
     };
 
+    const handleStatusChange=async(appointmentId,newStatus)=>{
+        try {
+            await updateStatus(appointmentId,newStatus);
+            setAppointments(prev=>
+                prev.map(a=>
+                    a.appointmentId==appointmentId? {...a, status:newStatus}:a),
+            alert("Durum güncellendi")
+            );
+        }
+        catch(error){
+            console.error("Durum Güncelleme hatası : ",error);
+            alert("Durum güncellenmedi");
+        }
+    };
+
     return (
         <div>
             <h1>Berber Randevuları</h1>
@@ -42,7 +58,15 @@ function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
             <ul>
                 {appointments.map((appointment) => (
                     <li key={appointment.appointmentId}>
-                        Kullanıcı ID: {appointment.userName} | Tarih: {appointment.appointmentDate} | Saat: {appointment.startTime} | Durum: {appointment.status}
+                        Randevu Alan Kişiler : {appointment.userName} | Tarih: {appointment.appointmentDate} | Saat: {appointment.startTime} 
+                        Durum : 
+                        <select
+                            value={appointment.status}
+                            onChange={(e)=>handleStatusChange(appointment.appointmentId, e.target.value)}>
+                                <option value="beklemede">Randevu Beklemede</option>
+                                <option value="onaylandı">Randevu Onaylandı</option>
+                                <option value="iptal edildi">Randevu İptal Edildi</option>
+                            </select>
                     </li>
                 ))}
             </ul>

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { registerUser } from "../services/userService";
+import { useNavigate } from "react-router-dom";
 
 export default function UserRegister() 
 {
+    
     const[form,setForm]=useState({
         name: '',
         email : '',
@@ -13,20 +15,18 @@ export default function UserRegister()
     const handleChange=(e)=>{
         setForm ({...form,[e.target.name]: e.target.value});
     };
-
-    const handleSubmit=async (e)=> {
+    const navigate=useNavigate();
+    async function handleSubmit(e) {
         e.preventDefault();
-        
-        try
-        {
+
+        try {
             await registerUser(form);
             alert('Kayıt Başarılı!');
         }
-        catch(error)
-        {
-            alert('Kayıt başarısız : '+error.responseData)
+        catch (error) {
+            alert('Kayıt başarısız : ' + error.responseData);
         }
-    };
+    }
 
     return (
         <div>
@@ -37,6 +37,7 @@ export default function UserRegister()
                 <input name="password" placeholder="Şifre" type="password" onChange={handleChange} required />
                 <input name="phone" placeholder="Telefon Numarası" onCanChange={handleChange} required />
                 <button type="submit">Kayıt Ol</button>
+                <button type="button" onClick={()=>navigate('/')}>Ana Sayfaya Geri Dön</button>
             </form>
         </div>
     );
