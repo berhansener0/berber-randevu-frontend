@@ -58,7 +58,7 @@ function BarberAppointmentsPage({ setIsBarberAuthenticated }) {
             <ul>
                 {appointments.map((appointment) => (
                     <li key={appointment.appointmentId}>
-                        Randevu Alan Kişiler : {appointment.userName} | Tarih: {appointment.appointmentDate} | Saat: {appointment.startTime} 
+                        Randevu Alan Kişiler : {appointment.userName} | Tarih: {appointment.appointmentDate.split('T')[0]} | Saat: {appointment.startTime} 
                         Durum : 
                         <select
                             value={appointment.status}
